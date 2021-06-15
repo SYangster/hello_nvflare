@@ -1,0 +1,84 @@
+api_version: 1
+
+# org is to describe each participant's organization
+# schema change: org is now mandatory
+
+# the name of this project
+name: example_project
+
+config_folder: 
+
+# Server enforcing role-based rights on admin users. true means all admin users are in role super
+disable_authz: true
+
+server:
+  org: nvidia
+
+  # set cn to the server's fully qualified domain name
+  # never set it to example.com
+  cn: localhost
+
+  # replace the number with that all clients can reach out to and that the server can open to listen to
+  fed_learn_port: 8002
+
+  # again replace the number with that all clients can reach out to and that the server can open to listen to
+  # the value must be different from fed_learn_port
+  admin_port: 8003
+
+  # admin_storage is the mmar upload folder name on the server
+  admin_storage: transfer
+
+  min_num_clients: 1
+  max_num_clients: 100
+
+  # The configuration validator class path.
+  # Server does not load configuration validator when it's set to empty.
+  # For example:
+  #  config_validator:
+  #
+  # When it's commented out the default will be used (medl.apps.fed_learn.server.mmar_validator.MMARValidator)
+  #
+  # Users can specifiy their own validator.  For example:
+  # config_validator:
+  #  hello.world.BestValdator
+  #
+  # User can also provide args for their own validator.  For example:
+  #  config_validator:
+  #    hello.world.BestValidator:
+  #      arg1: abc
+  #      arg2: 123
+
+  config_validator:
+
+# The following values under fl_clients and admin_clients are for demo purpose only.
+# Please change them according to the information of actual project.
+fl_clients:
+  # client_name must be unique
+  # email is optional
+  - org: nvidia
+    site: site-1
+  - org: nvidia
+    site: site-2 
+
+admin_clients:
+  # email is the user name for admin authentication.  Hence it must be unique within the project
+  - org: nvidia
+    email: admin@nvidia.com
+    roles:
+      - super
+
+authz_policy:
+  orgs:
+    nvidia:
+      - general
+      - relaxed
+  roles:
+    super: super user of system
+  groups: 
+    relaxed: 
+      desc: org group with relaxed policies
+      rules: 
+        byoc: true
+        custom_datalist: true
+    general: 
+      desc: general group user rights
