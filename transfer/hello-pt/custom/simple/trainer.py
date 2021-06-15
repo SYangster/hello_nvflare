@@ -1,4 +1,4 @@
-from simple import LeNet
+from .lenet import LeNet
 
 import torch
 import torch.optim as optim
@@ -68,7 +68,7 @@ class SimpleTrainer(Trainer):
         """
         # check abort signal
         self.logger.info(f"abort signal: {abort_signal.triggered}")
-        self.logger.info(fl_ctx)
+        # self.logger.info(fl_ctx)
         if abort_signal.triggered:
             shareable = generate_failure(fl_ctx=fl_ctx, reason="abort signal triggered")
             return shareable
@@ -109,7 +109,7 @@ class SimpleTrainer(Trainer):
                 loss.backward()
                 self.optimizer.step()
                 if batch_idx % 100 == 0:
-                    self.logger.info(f"{batch_idx}")
+                    self.logger.info(f"Training with batch idex= {batch_idx}")
             self.scheduler.step()
             if epoch % self.validation_interval == 0:
                 self.model.eval()

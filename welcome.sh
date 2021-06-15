@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
-python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple nvflare==0.9.6
+python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple nvflare==0.9.7
+# python3 -m pip install nvflare*.whl
 provision -n
-mkdir exp
-unzip -fo packages/server.zip -d exp/server
-unzip -fo packages/site-1.zip -d exp/site-1
-unzip -fo packages/site-2.zip -d exp/site-2
-unzip -fo "packages/admin@nvidia.com.zip" -d exp/admin
+mkdir -p exp
 
-cp -r transfer exp/admin/
+unzip -o packages/server.zip -d exp/server
+unzip -o packages/site-1.zip -d exp/site-1
+unzip -o packages/site-2.zip -d exp/site-2
+unzip -o "packages/admin@nvidia.com.zip" -d exp/admin
+
+cp -rf transfer exp/admin/
 
 python3 -m pip install torch torchvision
 
+echo "-------> Starting server"
 bash exp/server/startup/start.sh
-sleep 10
+sleep 20
+echo "-------> Starting client site-1"
 bash exp/site-1/startup/start.sh
+sleep 10
+echo "-------> Starting client site-2"
 bash exp/site-2/startup/start.sh
 sleep 10
 

@@ -1,26 +1,59 @@
 #!/usr/bin/expect -f
 spawn ./exp/admin/startup/fl_admin.sh
+sleep 5
+puts "Now login with username"
+flush stdout
 expect "User Name: "
 send "admin@nvidia.com\r"
-expect "> "
+flush stdout
+sleep 5
 puts "Now we upload a folder"
-send "upload_folder hello-pt\r"
-sleep 3
-
+flush stdout
 expect "> "
+send "upload_folder hello-pt\r"
+flush stdout
+sleep 5
+
 puts "Set the run number for current run"
+flush stdout
+expect "> "
 send "set_run_number 1\r"
+flush stdout
+sleep 5
+
+puts "Deploy the folder to server"
+flush stdout
 expect "> "
 send "deploy hello-pt server\r"
+flush stdout
+sleep 5
+
+puts "Deploy the folder to clients"
+flush stdout
 expect "> "
 send "deploy hello-pt client\r"
+flush stdout
+sleep 5
 
 puts "start server"
+flush stdout
 expect "> "
 send "start server\r"
+flush stdout
+sleep 8
 
-puts "start client"
-sleep 10
-send "start client\r"
+puts "start the first client 'site-1'"
+flush stdout
+expect "> "
+send "start client site-1\r"
+flush stdout
+sleep 8
+
+puts "start the first client 'site-2'"
+flush stdout
+expect "> "
+send "start client site-2\r"
+flush stdout
+sleep 8
 
 sleep 100
