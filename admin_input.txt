@@ -1,0 +1,10 @@
+admin@nvidia.com
+check_status server
+upload_folder hello-pt
+set_run_number 1
+deploy hello-pt server
+deploy hello-pt client
+start server
+start client
+
+

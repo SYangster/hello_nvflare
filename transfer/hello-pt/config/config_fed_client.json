@@ -1,0 +1,16 @@
+{
+  "format_version": 1,
+  "platform": "PT",
+  "client": {
+    "outbound_filters": [],
+    "inbound_filters": []
+  },
+  "client_trainer": {
+    "path": "simple.trainer.SimpleTrainer",
+    "args": {
+      "epochs_per_round": 10,
+      "validation_interval": 20
+    }
+  },
+  "handlers": []
+}

@@ -1,0 +1,7 @@
+{
+  "amp": true,
+  "use_gpu": true,
+  "multi_gpu": false,
+  "data_list_file_path": "/data/spleen/dataset_0.json",
+  "ckpt_dir": "models"
+}

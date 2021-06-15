@@ -6,7 +6,7 @@ api_version: 1
 # the name of this project
 name: example_project
 
-config_folder: 
+config_folder: config
 
 # Server enforcing role-based rights on admin users. true means all admin users are in role super
 disable_authz: true
