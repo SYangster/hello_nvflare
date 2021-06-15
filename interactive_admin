@@ -1,0 +1,26 @@
+#!/usr/bin/expect -f
+spawn ./exp/admin/startup/fl_admin.sh
+expect "User Name: "
+send "admin@nvidia.com\r"
+expect "> "
+puts "Now we upload a folder"
+send "upload_folder hello-pt\r"
+sleep 3
+
+expect "> "
+puts "Set the run number for current run"
+send "set_run_number 1\r"
+expect "> "
+send "deploy hello-pt server\r"
+expect "> "
+send "deploy hello-pt client\r"
+
+puts "start server"
+expect "> "
+send "start server\r"
+
+puts "start client"
+sleep 10
+send "start client\r"
+
+sleep 100

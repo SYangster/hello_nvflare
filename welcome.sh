@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-python3 -m pip install -i https://test.pypi.org/simple/ nvflare
+python3 -m pip install -i https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple nvflare==0.9.6
 provision -n
 mkdir exp
 unzip -fo packages/server.zip -d exp/server
@@ -18,6 +18,7 @@ bash exp/site-1/startup/start.sh
 bash exp/site-2/startup/start.sh
 sleep 10
 
-exp/admin/startup/fl_admin.sh < admin_input.txt
+./interactive_admin
+# exp/admin/startup/fl_admin.sh < admin_input.txt
 
 
