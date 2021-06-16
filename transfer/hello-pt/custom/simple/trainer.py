@@ -66,9 +66,10 @@ class SimpleTrainer(Trainer):
         Returns:
             a new `Shareable` object to be submitted to server for aggregation.
         """
+        client_name = fl_ctx.get_prop("client_name")
         # check abort signal
-        self.logger.info(f"abort signal: {abort_signal.triggered}")
-        # self.logger.info(fl_ctx)
+        self.logger.info(f"({client_name}) abort signal: {abort_signal.triggered}")
+        #self.logger.info(fl_ctx)
         if abort_signal.triggered:
             shareable = generate_failure(fl_ctx=fl_ctx, reason="abort signal triggered")
             return shareable
@@ -109,7 +110,7 @@ class SimpleTrainer(Trainer):
                 loss.backward()
                 self.optimizer.step()
                 if batch_idx % 100 == 0:
-                    self.logger.info(f"Training with batch idex= {batch_idx}")
+                    self.logger.info(f"({client_name}) Training with batch idex= {batch_idx}")
             self.scheduler.step()
             if epoch % self.validation_interval == 0:
                 self.model.eval()
@@ -127,7 +128,7 @@ class SimpleTrainer(Trainer):
                         correct += pred.eq(target.view_as(pred)).sum().item()
                 test_loss /= len(self.test_loader.dataset)
                 self.logger.info(
-                    f"Test set: Average loss: {test_loss:.4f},"
+                    f"({client_name}) Test set: Average loss: {test_loss:.4f},"
                     f" Accuracy: {correct}/{self.test_data_size} ({100.*correct/self.test_data_size:.0f}%)"
                 )
 
